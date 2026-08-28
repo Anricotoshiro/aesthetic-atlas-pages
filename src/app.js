@@ -8,6 +8,8 @@ import { curateGallery, imageIdentity } from './image-curation.js';
 import { culturalReferences, referenceTypeLabels } from './culture-data.js';
 import { musicMedia } from './music-media.js?v=20260824-2';
 import { mirroredMediaPath } from './media-path.js';
+import { galleryChunkIds } from './gallery-chunks/manifest.js';
+import { musicTrackChunkIds } from './music-track-chunks/manifest.js';
 
 const app = document.querySelector('#app');
 const header = document.querySelector('#siteHeader');
@@ -24,9 +26,11 @@ const HOME_FOCUS_CATEGORIES = ['psyche', 'digital', 'future'];
 let activeFilter = HOME_FOCUS_CATEGORIES[0];
 let heroTimer;
 let completeGalleryData = {};
-let completeGalleryPromise;
+const galleryChunkIdSet = new Set(galleryChunkIds);
+const galleryChunkPromises = new Map();
 let completeMusicTrackData = {};
-let completeMusicTrackPromise;
+const musicTrackChunkIdSet = new Set(musicTrackChunkIds);
+const musicTrackChunkPromises = new Map();
 let renderVersion = 0;
 let lazyBackgroundScrollHandler;
 let toneTransitionScrollHandler;
@@ -160,18 +164,40 @@ function coverFor(item) {
   return explicitCoverFor(item) || galleryFor(item)[0];
 }
 
-function loadCompleteGallery() {
-  if (!completeGalleryPromise) completeGalleryPromise = Promise.all([
-    import('./gallery-index.js'),
-    import('./expanded-gallery-index.js')
-  ]).then(([base, expanded]) => { completeGalleryData = { ...base.completeGalleryData, ...expanded.expandedGalleryData }; });
-  return completeGalleryPromise;
+function loadGalleryFor(id) {
+  if (Object.hasOwn(completeGalleryData, id)) return Promise.resolve();
+  if (!galleryChunkIdSet.has(id)) {
+    completeGalleryData[id] = [];
+    return Promise.resolve();
+  }
+  if (!galleryChunkPromises.has(id)) {
+    galleryChunkPromises.set(id, import(`./gallery-chunks/${id}.js`)
+      .then(module => { completeGalleryData[id] = module.galleryImages; })
+      .catch(error => {
+        galleryChunkPromises.delete(id);
+        completeGalleryData[id] = [];
+        console.warn(`Gallery data for ${id} could not be loaded.`, error);
+      }));
+  }
+  return galleryChunkPromises.get(id);
 }
 
-function loadCompleteMusicTracks() {
-  if (!completeMusicTrackPromise) completeMusicTrackPromise = import('./music-track-index.js')
-    .then(module => { completeMusicTrackData = module.musicTrackData; });
-  return completeMusicTrackPromise;
+function loadMusicTracksFor(id) {
+  if (Object.hasOwn(completeMusicTrackData, id)) return Promise.resolve();
+  if (!musicTrackChunkIdSet.has(id)) {
+    completeMusicTrackData[id] = [];
+    return Promise.resolve();
+  }
+  if (!musicTrackChunkPromises.has(id)) {
+    musicTrackChunkPromises.set(id, import(`./music-track-chunks/${id}.js`)
+      .then(module => { completeMusicTrackData[id] = module.musicTracks; })
+      .catch(error => {
+        musicTrackChunkPromises.delete(id);
+        completeMusicTrackData[id] = [];
+        console.warn(`Music track data for ${id} could not be loaded.`, error);
+      }));
+  }
+  return musicTrackChunkPromises.get(id);
 }
 
 function referencesFor(item) {
@@ -664,7 +690,13 @@ function simpleView(type) {
 
 function bindCommon() {
   bindLazyBackgrounds();
-  $$('[data-open]').forEach(el => el.addEventListener('click', (e) => { e.stopPropagation(); location.hash = `style/${el.dataset.open}`; }));
+  $$('[data-open]').forEach(el => {
+    const preload = () => { void loadGalleryFor(el.dataset.open); };
+    el.addEventListener('pointerenter', preload, { once: true });
+    el.addEventListener('focus', preload, { once: true });
+    el.addEventListener('touchstart', preload, { once: true, passive: true });
+    el.addEventListener('click', (e) => { e.stopPropagation(); location.hash = `style/${el.dataset.open}`; });
+  });
   $$('[data-save]').forEach(el => el.addEventListener('click', (e) => { e.stopPropagation(); toggleSave(el.dataset.save); }));
   $$('[data-category]').forEach(el => el.addEventListener('click', () => { location.hash = `explore/${el.dataset.category}`; }));
   $$('[data-route-button]').forEach(el => el.addEventListener('click', () => { location.hash = el.dataset.routeButton; }));
@@ -673,7 +705,13 @@ function bindCommon() {
   bindFilterRows();
   $$('[data-gallery-open]').forEach(el => el.addEventListener('click', () => openGallery(el.dataset.galleryOpen, Number(el.dataset.galleryIndex))));
   $$('[data-gallery-all]').forEach(el => el.addEventListener('click', () => { location.hash = `gallery/${el.dataset.galleryAll}`; }));
-  $$('[data-music-open]').forEach(el => el.addEventListener('click', () => { location.hash = `music-style/${el.dataset.musicOpen}`; }));
+  $$('[data-music-open]').forEach(el => {
+    const preload = () => { void loadMusicTracksFor(el.dataset.musicOpen); };
+    el.addEventListener('pointerenter', preload, { once: true });
+    el.addEventListener('focus', preload, { once: true });
+    el.addEventListener('touchstart', preload, { once: true, passive: true });
+    el.addEventListener('click', () => { location.hash = `music-style/${el.dataset.musicOpen}`; });
+  });
   $$('[data-music-category]').forEach(el => el.addEventListener('click', () => { location.hash = `music/${el.dataset.musicCategory}`; }));
   bindReferenceFilters();
   bindGalleryBrowser();
@@ -1045,8 +1083,8 @@ async function render() {
   clearInterval(heroTimer);
   const route = location.hash.replace(/^#/, '') || 'home';
   const [page, param] = route.split('/');
-  if (page === 'style' || page === 'gallery') await loadCompleteGallery();
-  if (page === 'music-style') await loadCompleteMusicTracks();
+  if (page === 'style' || page === 'gallery') await loadGalleryFor(param);
+  if (page === 'music-style') await loadMusicTracksFor(param);
   if (version !== renderVersion) return;
   document.body.classList.toggle('has-light-header', ['explore', 'timeline', 'atlas', 'journal', 'about', 'contribute', 'method'].includes(page));
   document.body.classList.remove('is-detail');
