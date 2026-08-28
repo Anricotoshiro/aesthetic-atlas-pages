@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anricotoshiro.github.io/aesthetic-atlas-pages/sitemap.xml
