@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://anricotoshiro.github.io/aesthetic-atlas-pages/sitemap.xml
+Sitemap: https://atlas.roselandinternational.asia/sitemap.xml
