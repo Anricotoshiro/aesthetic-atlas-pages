@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10100f" />
+    <meta name="description" content="Aesthetic Atlas 与 Auditory Aesthetics——全球视觉与听觉美学数据库。" />
+    <title>美学主义 · Aestheticism</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./src/styles.css?v=20260825-38" />
+  </head>
+  <body class="site-entering">
+    <div class="noise" aria-hidden="true"></div>
+    <div class="entry-curtain" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div>
+    <header class="site-header" id="siteHeader">
+      <a class="brand" href="#home" aria-label="美学主义首页">
+        <span class="brand__name">美学主义</span>
+        <sup>®</sup>
+        <span class="brand__latin">AESTHETIC ARCHIVE</span>
+      </a>
+      <nav class="main-nav" aria-label="主导航">
+        <a href="#explore" data-route="explore">视觉美学</a>
+        <a href="#music" data-route="music">听觉美学</a>
+        <a href="#timeline" data-route="timeline">年代</a>
+        <a href="#atlas" data-route="atlas">全球图谱</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button" id="savedButton" aria-label="查看收藏"><span>♡</span><b id="savedCount">0</b></button>
+        <button class="search-button" id="searchButton" aria-label="搜索"><span>搜索</span><kbd>⌘ K</kbd></button>
+        <button class="menu-button" id="menuButton" aria-label="打开菜单"><i></i><i></i></button>
+      </div>
+    </header>
+
+    <main id="app"></main>
+
+    <footer class="site-footer">
+      <div class="footer__lead">
+        <span class="eyebrow">THE LIVING ARCHIVE</span>
+        <h2>美，从来不止<br />一种答案<a class="sealed-entry" href="#sealed" aria-label="打开封存条目">。</a></h2>
+      </div>
+      <div class="footer__grid">
+        <div><span>浏览</span><a href="#explore">视觉美学</a><a href="#music">听觉美学</a><a href="#timeline">年代检索</a></div>
+        <div><span>计划</span><a href="#about">关于档案馆</a><a href="#contribute">提交风格</a><a href="#method">研究方法</a></div>
+        <div><span>状态</span><p id="footerAestheticCount">视觉条目载入中</p><p id="footerMusicCount">听觉条目载入中</p><p>开放图像与 IIIF 馆藏</p></div>
+      </div>
+      <div class="footer__bottom"><span>© 2026 美学主义</span><span>为视觉文化建立坐标</span><span>SHANGHAI · WORLDWIDE</span></div>
+    </footer>
+
+    <dialog class="search-panel" id="searchPanel">
+      <div class="search-panel__inner">
+        <div class="search-panel__top">
+          <span class="eyebrow">SEARCH THE ARCHIVE</span>
+          <button id="closeSearch" aria-label="关闭搜索">关闭 ESC</button>
+        </div>
+        <label class="search-input-wrap">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="输入风格、年代或情绪…" autocomplete="off" />
+        </label>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </dialog>
+
+    <dialog class="gallery-lightbox" id="galleryLightbox">
+      <div class="gallery-lightbox__bar">
+        <span id="galleryLightboxCounter">01 / 01</span>
+        <button id="closeGalleryLightbox" aria-label="关闭图集">关闭</button>
+      </div>
+      <div class="gallery-lightbox__stage"><img id="galleryLightboxImage" alt="" /></div>
+      <div class="gallery-lightbox__info">
+        <div><h2 id="galleryLightboxTitle"></h2><p id="galleryLightboxMeta"></p></div>
+        <div class="gallery-lightbox__links"><span id="galleryLightboxLicense"></span><a id="galleryLightboxIiif" href="#" target="_blank" rel="noreferrer" hidden>IIIF INFO.JSON</a><a id="galleryLightboxSource" href="#" target="_blank" rel="noreferrer">查看馆藏来源 ↗</a></div>
+      </div>
+      <div class="gallery-lightbox__controls"><button id="galleryPrevious" aria-label="上一张">←</button><button id="galleryNext" aria-label="下一张">→</button></div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script type="module" src="./src/app.js?v=20260827-59"></script>
+  </body>
+</html>
