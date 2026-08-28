@@ -175,7 +175,7 @@ function loadGalleryFor(id) {
       .then(module => { completeGalleryData[id] = module.galleryImages; })
       .catch(error => {
         galleryChunkPromises.delete(id);
-        completeGalleryData[id] = [];
+        delete completeGalleryData[id];
         console.warn(`Gallery data for ${id} could not be loaded.`, error);
       }));
   }
@@ -193,7 +193,7 @@ function loadMusicTracksFor(id) {
       .then(module => { completeMusicTrackData[id] = module.musicTracks; })
       .catch(error => {
         musicTrackChunkPromises.delete(id);
-        completeMusicTrackData[id] = [];
+        delete completeMusicTrackData[id];
         console.warn(`Music track data for ${id} could not be loaded.`, error);
       }));
   }
