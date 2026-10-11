@@ -1,0 +1,1 @@
+import"./chunk-ARR6HII7.js";var e=[{title:"space opera",creator:"LAAddams",date:"2020-04-07",license:"CC BY-SA 2.0",sourceUrl:"https://www.flickr.com/photos/95581377@N03/8720860449",provider:"Flickr / Openverse",src:"./assets/expanded-covers/space-opera-exact.jpg",subject:"space-opera",remote:!1,curation:"exact-phrase-lead",role:"context",originalIndex:1}];export{e as images};

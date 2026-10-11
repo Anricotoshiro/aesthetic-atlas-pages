@@ -1,4 +1,22 @@
 User-agent: *
 Allow: /
-
+Disallow: /sealed/
+Disallow: /saved/
+Disallow: /compare/
+Disallow: /aesthetics/gorecore/
+Disallow: /galleries/gorecore/
+Disallow: /aesthetics/rotcore/
+Disallow: /galleries/rotcore/
+Disallow: /aesthetics/morute/
+Disallow: /galleries/morute/
+Disallow: /aesthetics/gurokawa/
+Disallow: /galleries/gurokawa/
+Disallow: /aesthetics/devilcore/
+Disallow: /galleries/devilcore/
+Disallow: /aesthetics/cutecore/
+Disallow: /galleries/cutecore/
+Disallow: /aesthetics/guro/
+Disallow: /galleries/guro/
+Disallow: /aesthetics/ero-guro/
+Disallow: /galleries/ero-guro/
 Sitemap: https://atlas.roselandinternational.asia/sitemap.xml
