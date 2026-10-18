@@ -1,8 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="美学主义">
-  <circle cx="32" cy="32" r="29" fill="#11110f"/>
-  <circle cx="32" cy="32" r="26.5" fill="none" stroke="#f3efe6" stroke-width="1.5"/>
-  <g fill="none" stroke="#f3efe6" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter">
-    <path d="m21 16 6 6m16-6-6 6"/>
-    <path d="M19 23h26M17 31h30M15 40h34M32 21v20M32 40 21 51m11-11 11 11"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" role="img" aria-label="美学主义"><rect width="60" height="60" rx="9" fill="#e8e5dc"/><g fill="none" stroke="#242a2f" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><circle cx="30" cy="30" r="23"/><ellipse cx="30" cy="30" rx="29" ry="10" transform="rotate(-36 30 30)"/><path d="m18 41 12-28 12 28M23 31h14"/><circle cx="49" cy="15" r="3" class="mark-dot"/></g><style>.mark-dot{fill:#E4002B;stroke:none}</style></svg>

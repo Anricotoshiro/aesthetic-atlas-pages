@@ -3,16 +3,16 @@
   "short_name": "美学主义",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#11110f",
-  "theme_color": "#11110f",
+  "background_color": "#e8e5dc",
+  "theme_color": "#e8e5dc",
   "icons": [
     {
-      "src": "./assets/brand/icon-192.png",
+      "src": "/assets/brand/icon-192.png?v=2e042bf3f19e",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./assets/brand/icon-512.png",
+      "src": "/assets/brand/icon-512.png?v=2e042bf3f19e",
       "sizes": "512x512",
       "type": "image/png"
     }
