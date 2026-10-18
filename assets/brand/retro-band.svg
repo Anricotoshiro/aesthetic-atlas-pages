@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 180" fill="none">
-  <g stroke-width="11">
-    <path d="M0 20H240A110 110 0 0 1 350 130V180" stroke="#d6532b"/>
-    <path d="M0 33H240A97 97 0 0 1 337 130V180" stroke="#dc8139"/>
-    <path d="M0 46H240A84 84 0 0 1 324 130V180" stroke="#e6b549"/>
-    <path d="M0 59H240A71 71 0 0 1 311 130V180" stroke="#73805a"/>
+  <g stroke-width="8">
+    <path d="M0 20H240A110 110 0 0 1 350 130V180" stroke="#476180"/>
+    <path d="M0 33H240A97 97 0 0 1 337 130V180" stroke="#dfbf69"/>
+    <path d="M0 46H240A84 84 0 0 1 324 130V180" stroke="#cd7642"/>
+    <path d="M0 59H240A71 71 0 0 1 311 130V180" stroke="#bc4d36"/>
   </g>
 </svg>
